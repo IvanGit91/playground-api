@@ -1,13 +1,11 @@
 package com.playground.api.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.Instant;
 
-@Setter
-@Getter
+@Data
 @Entity(name = "refreshtoken")
 public class RefreshToken {
     @Id

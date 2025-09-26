@@ -88,5 +88,4 @@ nb-configuration.xml
 ## PROJECT SPECIFIC
 ##############################
 src/main/resources/application-*.yml
-!src/main/resources/application-example.yml
 docker-compose.yaml

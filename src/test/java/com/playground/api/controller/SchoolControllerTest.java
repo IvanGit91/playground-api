@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.playground.api.model.Student;
 import com.playground.api.model.Teacher;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ class SchoolControllerTest {
                 .andDo(print())
                 .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString(), Teacher.class);
 
-        Assert.assertEquals(1, actual.getStudents().stream().filter(s -> s.getName().equals(expected.getName())).count());
+        Assertions.assertEquals(1, actual.getStudents().stream().filter(s -> s.getName().equals(expected.getName())).count());
     }
 
     @Test
@@ -59,7 +59,7 @@ class SchoolControllerTest {
                 .andDo(print())
                 .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString(), Teacher.class);
 
-        Assert.assertEquals(1, actual.getStudents().stream().filter(s -> s.getName().equals("Salo")).count());
+        Assertions.assertEquals(1, actual.getStudents().stream().filter(s -> s.getName().equals("Salo")).count());
     }
 
     @Test
@@ -73,8 +73,8 @@ class SchoolControllerTest {
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString(), new TypeReference<Set<Student>>() {
         });
 
-        Assert.assertEquals(2, actual.size());
-        Assert.assertEquals("New,Salo", actual.stream().map(s -> s.getName()).sorted().collect(Collectors.joining(",")));
+        Assertions.assertEquals(2, actual.size());
+        Assertions.assertEquals("New,Salo", actual.stream().map(Student::getName).sorted().collect(Collectors.joining(",")));
     }
 
     @Test
@@ -88,7 +88,7 @@ class SchoolControllerTest {
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString(), new TypeReference<Set<Teacher>>() {
         });
 
-        Assert.assertEquals(1, actual.size());
-        Assert.assertEquals("Mark", actual.stream().map(t -> t.getName()).sorted().collect(Collectors.joining(",")));
+        Assertions.assertEquals(1, actual.size());
+        Assertions.assertEquals("Mark", actual.stream().map(Teacher::getName).sorted().collect(Collectors.joining(",")));
     }
 }

@@ -1,13 +1,8 @@
 package com.playground.api.aspect;
 
 import lombok.extern.java.Log;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -17,7 +12,8 @@ public class LoggingAspect {
 
     // Define a pointcut: Target all methods in the service package
     @Pointcut("execution(* com.playground.api.service.*.*(..))")
-    public void serviceMethods() {}
+    public void serviceMethods() {
+    }
 
     // Advice that runs before the method execution
     @Before("serviceMethods()")

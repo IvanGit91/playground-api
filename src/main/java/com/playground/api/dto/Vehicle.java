@@ -1,4 +1,4 @@
-package com.playground.api.model;
+package com.playground.api.dto;
 
 import lombok.Getter;
 import lombok.Setter;

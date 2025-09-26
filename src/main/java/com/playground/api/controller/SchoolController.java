@@ -2,36 +2,27 @@ package com.playground.api.controller;
 
 import com.playground.api.model.Student;
 import com.playground.api.model.Teacher;
-import com.playground.api.view.TeacherStudentView;
 import com.playground.api.repository.StudentRepository;
 import com.playground.api.repository.TeacherRepository;
 import com.playground.api.service.StudentService;
 import com.playground.api.service.TeacherStudentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.playground.api.view.TeacherStudentView;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/school")
+@RequiredArgsConstructor
 public class SchoolController {
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
     private final StudentService studentService;
     private final TeacherStudentService teacherStudentService;
-
-    @Autowired
-    public SchoolController(StudentRepository studentRepository,
-                            TeacherRepository teacherRepository,
-                            StudentService studentService,
-                            TeacherStudentService teacherStudentService) {
-        this.studentRepository = studentRepository;
-        this.teacherRepository = teacherRepository;
-        this.studentService = studentService;
-        this.teacherStudentService = teacherStudentService;
-    }
 
     // get student
     @GetMapping("/student/hello")
@@ -63,9 +54,13 @@ public class SchoolController {
     //add student to a teacher
     @PostMapping("/teacher/{teacherId}/addStudent")
     public ResponseEntity<Teacher> addStudent(@PathVariable(value = "teacherId") Long teacherId, @RequestBody Student addStudent) {
+        Optional<Teacher> teacherOpt = teacherRepository.findById(teacherId);
 
-        Teacher teacher = teacherRepository.findById(teacherId).get();
+        if (teacherOpt.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
+        Teacher teacher = teacherOpt.get();
         Student student = null;
         boolean studentAlreadyPresent = addStudent.getId() != 0;
         if (studentAlreadyPresent) {
@@ -78,11 +73,9 @@ public class SchoolController {
             addStudent = studentRepository.save(addStudent);
         }
         teacher.getStudents().add(addStudent);
-        //addStudent.getTeachers().add(teacher);
         teacherRepository.save(teacher);
-        //studentRepository.save(addStudent);
 
-        return new ResponseEntity<Teacher>(teacher, HttpStatus.CREATED);
+        return new ResponseEntity<>(teacher, HttpStatus.CREATED);
     }
 
     // get student
@@ -95,17 +88,15 @@ public class SchoolController {
     //get students of a teacher
     @GetMapping("/teacher/{teacherId}/students")
     public ResponseEntity<List<Student>> getStudentsOfATeacher(@PathVariable(value = "teacherId") Long teacherId) {
-        //Teacher teacher = teacherRepository.findById(teacherId).get();
         List<Student> students = studentRepository.findStudentsByTeacherIdNative(teacherId);
-        return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
+        return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
     // get teachers of a student
     @GetMapping("/student/{studentId}/teachers")
     public ResponseEntity<List<Teacher>> getTeachersOfAStudent(@PathVariable(value = "studentId") Long studentId) {
-        //Student student = studentRepository.findById(studentId).get();
         List<Teacher> teachers = teacherRepository.findTeachersByStudentId(studentId);
         // TODO - exclude students
-        return new ResponseEntity<List<Teacher>>(teachers, HttpStatus.OK);
+        return new ResponseEntity<>(teachers, HttpStatus.OK);
     }
 }

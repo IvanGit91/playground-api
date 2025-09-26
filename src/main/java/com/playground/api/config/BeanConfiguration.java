@@ -1,7 +1,6 @@
 package com.playground.api.config;
 
-import com.playground.api.model.Vehicle;
-import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
+import com.playground.api.dto.Vehicle;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

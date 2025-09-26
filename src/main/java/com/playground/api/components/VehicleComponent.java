@@ -1,11 +1,12 @@
 package com.playground.api.components;
 
 import com.playground.api.config.BeanConfiguration;
-import com.playground.api.model.Vehicle;
+import com.playground.api.dto.Vehicle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
+
 // Get Vehicle bean sample configuration
 @Component
 @Slf4j
