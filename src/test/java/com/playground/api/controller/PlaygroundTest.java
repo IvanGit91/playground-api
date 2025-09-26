@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.playground.api.model.Student;
 import com.playground.api.model.Teacher;
+import org.h2.tools.Server;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.sql.SQLException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,10 +29,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureMockMvc
 @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:data.sql")
-class SchoolControllerTest {
+class PlaygroundTest {
     ObjectMapper om = new ObjectMapper();
     @Autowired
     private MockMvc mockMvc;
+
+    // For debugging purposes, make h2 console available at port http://localhost:8082
+    @BeforeAll
+    static void initTest() throws SQLException {
+        Server.createWebServer("-web", "-webAllowOthers", "-webPort", "8082")
+                .start();
+    }
 
     @Test
     void addNewStudentToATeacher() throws Exception {

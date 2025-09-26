@@ -16,11 +16,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-        <java.version>17</java.version>
+        <java.version>23</java.version>
 
         <!-- Dependency Versions -->
         <postgresql.version>42.7.2</postgresql.version>
-        <lombok.version>1.18.22</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
         <jjwt.version>0.11.5</jjwt.version>
 
         <!-- Plugin Versions -->
@@ -71,7 +71,7 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

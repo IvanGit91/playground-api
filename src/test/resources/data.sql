@@ -4,6 +4,7 @@ TRUNCATE TABLE teacher;
 TRUNCATE TABLE student;
 SET
 REFERENTIAL_INTEGRITY TRUE;
+
 ALTER TABLE teacher
     ALTER COLUMN teacher_id RESTART WITH 1;
 ALTER TABLE student
@@ -24,3 +25,8 @@ INSERT INTO student(student_id, student_name)
 VALUES ('4', 'Maya');
 INSERT INTO student(student_id, student_name)
 VALUES ('5', 'Srohi');
+
+ALTER TABLE teacher
+    ALTER COLUMN teacher_id RESTART WITH 3;
+ALTER TABLE student
+    ALTER COLUMN student_id RESTART WITH 6;
