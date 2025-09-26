@@ -1,4 +1,4 @@
-package com.playground.api.model;
+package com.playground.api.enums;
 
 public enum ERole {
     ROLE_USER,

@@ -16,11 +16,10 @@ import java.util.UUID;
 
 @Service
 public class RefreshTokenService {
-    @Value("${playground.app.jwtRefreshExpirationMs}")
-    private Long refreshTokenDurationMs;
-
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserRepository userRepository;
+    @Value("${playground.app.jwtRefreshExpirationMs}")
+    private Long refreshTokenDurationMs;
 
     public RefreshTokenService(RefreshTokenRepository refreshTokenRepository, UserRepository userRepository) {
         this.refreshTokenRepository = refreshTokenRepository;

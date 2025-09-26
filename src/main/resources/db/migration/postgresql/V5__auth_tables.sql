@@ -1,12 +1,12 @@
-CREATE SEQUENCE IF NOT EXISTS refreshtoken_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE IF NOT EXISTS refresh_tokens_seq START WITH 1 INCREMENT BY 50;
 
-CREATE TABLE refreshtoken
+CREATE TABLE refresh_tokens
 (
     id          BIGINT                      NOT NULL,
     user_id     BIGINT,
     token       VARCHAR(255)                NOT NULL,
     expiry_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    CONSTRAINT pk_refreshtoken PRIMARY KEY (id)
+    CONSTRAINT pk_refresh_tokens PRIMARY KEY (id)
 );
 
 CREATE TABLE roles
@@ -38,11 +38,11 @@ ALTER TABLE users
 ALTER TABLE users
     ADD CONSTRAINT uc_77584fbe74cc86922be2a3560 UNIQUE (username);
 
-ALTER TABLE refreshtoken
-    ADD CONSTRAINT uc_refreshtoken_token UNIQUE (token);
+ALTER TABLE refresh_tokens
+    ADD CONSTRAINT uc_refresh_tokens_token UNIQUE (token);
 
-ALTER TABLE refreshtoken
-    ADD CONSTRAINT FK_REFRESHTOKEN_ON_USER FOREIGN KEY (user_id) REFERENCES users (id);
+ALTER TABLE refresh_tokens
+    ADD CONSTRAINT FK_REFRESH_TOKENS_ON_USER FOREIGN KEY (user_id) REFERENCES users (id);
 
 ALTER TABLE user_roles
     ADD CONSTRAINT fk_userol_on_role FOREIGN KEY (role_id) REFERENCES roles (id);

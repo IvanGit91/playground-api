@@ -2,11 +2,15 @@ package com.playground.api.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.time.Instant;
 
+@Entity(name = "refresh_tokens")
 @Data
-@Entity(name = "refreshtoken")
+@ToString(exclude = {"user"})
+@EqualsAndHashCode(exclude = {"user"})
 public class RefreshToken {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

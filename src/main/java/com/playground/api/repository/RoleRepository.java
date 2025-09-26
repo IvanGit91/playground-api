@@ -1,6 +1,6 @@
 package com.playground.api.repository;
 
-import com.playground.api.model.ERole;
+import com.playground.api.enums.ERole;
 import com.playground.api.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

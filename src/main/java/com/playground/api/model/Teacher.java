@@ -7,20 +7,20 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+@Entity(name = "teachers")
 @Builder
+@Data
+@ToString(exclude = {"students"})
+@EqualsAndHashCode(exclude = {"students"})
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@Entity(name = "teacher")
 public class Teacher implements Serializable {
     @Id
-    @Column(name = "teacher_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "teacher_name")
+    @Column(name = "name")
     private String name;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

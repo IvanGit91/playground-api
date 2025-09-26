@@ -1,8 +1,8 @@
 package com.playground.api.controller;
 
+import com.playground.api.enums.ERole;
 import com.playground.api.exception.PlaygroundException;
 import com.playground.api.exception.TokenRefreshException;
-import com.playground.api.model.ERole;
 import com.playground.api.model.RefreshToken;
 import com.playground.api.model.Role;
 import com.playground.api.model.User;

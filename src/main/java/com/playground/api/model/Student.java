@@ -8,20 +8,20 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+@Entity(name = "students")
 @Builder
+@Data
+@ToString(exclude = {"teachers"})
+@EqualsAndHashCode(exclude = {"teachers"})
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"teachers"})
-@Entity(name = "student")
 public class Student implements Serializable {
     @Id
-    @Column(name = "student_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private long id;
-    @Column(name = "student_name")
+
+    @Column(name = "name")
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "students", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
